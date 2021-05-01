@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		696D0000263E1367000279FF /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 696DFFF6263E1367000279FF /* State.cpp */; };
+		696D0001263E1367000279FF /* Block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 696DFFF7263E1367000279FF /* Block.cpp */; };
+		696D0002263E1367000279FF /* Sequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 696DFFF9263E1367000279FF /* Sequence.cpp */; };
+		696D0003263E1367000279FF /* makefile in Sources */ = {isa = PBXBuildFile; fileRef = 696DFFFC263E1367000279FF /* makefile */; };
 		696DFFEE263E11E8000279FF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 696DFFED263E11E8000279FF /* main.cpp */; };
+		696DFFFF263E1367000279FF /* Cipher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 696DFFF5263E1367000279FF /* Cipher.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +30,17 @@
 /* Begin PBXFileReference section */
 		696DFFEA263E11E8000279FF /* AES */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AES; sourceTree = BUILT_PRODUCTS_DIR; };
 		696DFFED263E11E8000279FF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		696DFFF4263E1367000279FF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		696DFFF5263E1367000279FF /* Cipher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cipher.cpp; sourceTree = "<group>"; };
+		696DFFF6263E1367000279FF /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
+		696DFFF7263E1367000279FF /* Block.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Block.cpp; sourceTree = "<group>"; };
+		696DFFF8263E1367000279FF /* Sequence.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sequence.hpp; sourceTree = "<group>"; };
+		696DFFF9263E1367000279FF /* Sequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sequence.cpp; sourceTree = "<group>"; };
+		696DFFFA263E1367000279FF /* TheOne.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TheOne.jpeg; sourceTree = "<group>"; };
+		696DFFFB263E1367000279FF /* State.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = State.hpp; sourceTree = "<group>"; };
+		696DFFFC263E1367000279FF /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
+		696DFFFD263E1367000279FF /* Block.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Block.hpp; sourceTree = "<group>"; };
+		696DFFFE263E1367000279FF /* Cipher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Cipher.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +73,17 @@
 		696DFFEC263E11E8000279FF /* AES */ = {
 			isa = PBXGroup;
 			children = (
+				696DFFF7263E1367000279FF /* Block.cpp */,
+				696DFFFD263E1367000279FF /* Block.hpp */,
+				696DFFF5263E1367000279FF /* Cipher.cpp */,
+				696DFFFE263E1367000279FF /* Cipher.hpp */,
+				696DFFFC263E1367000279FF /* makefile */,
+				696DFFF4263E1367000279FF /* README.md */,
+				696DFFF9263E1367000279FF /* Sequence.cpp */,
+				696DFFF8263E1367000279FF /* Sequence.hpp */,
+				696DFFF6263E1367000279FF /* State.cpp */,
+				696DFFFB263E1367000279FF /* State.hpp */,
+				696DFFFA263E1367000279FF /* TheOne.jpeg */,
 				696DFFED263E11E8000279FF /* main.cpp */,
 			);
 			path = AES;
@@ -118,7 +145,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				696DFFFF263E1367000279FF /* Cipher.cpp in Sources */,
+				696D0001263E1367000279FF /* Block.cpp in Sources */,
+				696D0003263E1367000279FF /* makefile in Sources */,
 				696DFFEE263E11E8000279FF /* main.cpp in Sources */,
+				696D0002263E1367000279FF /* Sequence.cpp in Sources */,
+				696D0000263E1367000279FF /* State.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
