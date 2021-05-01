@@ -1,11 +1,6 @@
-//
-//  main.cpp
-//  AES
-//
-//  Created by Kuntal Nayak on 5/1/21.
-//
-
 /*
+ * Created by Kuntal Nayak on 5/1/21.
+ *
  * Main.cpp
  *
  * We have followed these secure coding pratices throughout:
