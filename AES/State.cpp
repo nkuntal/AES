@@ -13,9 +13,9 @@
  * Initialize a state of 4 x 4 characters from input sequence
  * @param sq - input sequence reference
  */
-State::State(Sequence* sq): s(new unsigned char*[4]) {
+State::State(Sequence* sq): s(new uint8_t*[4]) {
     for (int i=0; i < 4; i++) {
-        s[i] = new unsigned char[4];
+        s[i] = new uint8_t[4];
     }
     for (int i=0; i < 4; i++) {
         for (int j=0; j < 4; j++) {
@@ -40,7 +40,7 @@ State::~State() {
  * Get state array
  * Return: state reference pointer
  */
-unsigned char** State::getStateArray() const {
+uint8_t** State::getStateArray() const {
     return s;
 }
 
@@ -60,7 +60,7 @@ Sequence State::toSequence() const {
 /*
  *  Set State
  */
-void State::setStateArray(unsigned char** st){
+void State::setStateArray(uint8_t** st){
     s = st;
 }
 

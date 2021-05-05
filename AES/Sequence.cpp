@@ -16,13 +16,13 @@
  *               input data
  */ 
 Sequence::Sequence(int _size): size(_size){
-    sq = new unsigned char[size];
+    sq = new uint8_t[size];
 }
 
 /*
  * Get sequence
  */ 
-unsigned char* &Sequence::getSequence() {
+uint8_t* &Sequence::getSequence() {
     return sq;
 }
 
@@ -36,7 +36,7 @@ int Sequence::getSize() {
 /*
  * Set sequence
  */ 
-void Sequence::setSequence(unsigned char* sq) { 
+void Sequence::setSequence(uint8_t* sq) {
     this->sq = sq;
 }
 
@@ -46,7 +46,7 @@ void Sequence::setSequence(unsigned char* sq) {
 void Sequence::setSize(int _size) {
     if(_size > 16 || _size < 0) throw "Invalid capacity\n";
     if(size != _size) {
-        unsigned char* temp = new unsigned char[_size];
+        uint8_t* temp = new unsigned char[_size];
         for(int i=0; i< _size; i++)
             temp[i] = sq[i];
         delete[] sq;

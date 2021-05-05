@@ -19,9 +19,9 @@ using namespace std;
 class Block {
     private:
         vector<Sequence> sequenceVct;
-        void padding(vector<unsigned char>* input);
+        void padding(vector<uint8_t>* input);
     public:
-        Block(vector<unsigned char>* input, bool pad);
+        Block(vector<uint8_t>* input, bool pad);
         ~Block();
         vector<Sequence>& getSequenceVector();
         vector<unsigned char> getInput() const;

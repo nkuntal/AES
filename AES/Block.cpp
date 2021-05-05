@@ -17,7 +17,7 @@ using namespace std;
  *
  *  OOP53-CPP. Write constructor member initializers in the canonical order
  */
-Block::Block(vector<unsigned char>* input, bool pad) {
+Block::Block(vector<uint8_t>* input, bool pad) {
     if(pad) padding(input);
     Sequence sq = ((*input).size() >= 16) ? Sequence(16) : Sequence((*input).size());
     int j = 0;
@@ -53,7 +53,7 @@ Block::~Block() {
  *      if 5 bytes are missing add 0x0505050505
  * @param input - vector with input bytes
  */
-void Block::padding(vector<unsigned char>* input) {
+void Block::padding(vector<uint8_t>* input) {
     int mod = (*input).size() % 16;
     for (int i=0; i<16-mod; i++)
         input->push_back(0x10-mod);

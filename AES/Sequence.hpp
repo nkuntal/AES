@@ -9,6 +9,7 @@
 #include "stdio.h"
 #include "algorithm"
 #include "ostream"
+#include "stdint.h"
 
 
 
@@ -16,12 +17,12 @@ using namespace std;
 
 class Sequence {
     private:
-        unsigned char* sq;
+        uint8_t* sq;
         int size;
     public:
         Sequence(int _size);
-        unsigned char* &getSequence();
-        void setSequence(unsigned char* sq);
+        uint8_t* &getSequence();
+        void setSequence(uint8_t* sq);
         void setSize(int _size);
         int getSize();
         void updateSequence(Sequence seq);

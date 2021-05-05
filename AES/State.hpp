@@ -13,13 +13,13 @@
 
 class State {
     private:
-        unsigned char** s;
+        uint8_t** s;
     public:
         State(Sequence* sq);
         ~State();
-        unsigned char** getStateArray() const;
+        uint8_t** getStateArray() const;
         Sequence toSequence() const;
-        void setStateArray(unsigned char** newS);
+        void setStateArray(uint8_t** newS);
         friend ostream& operator<<(ostream& os, const State& state);
         friend State& operator^(State& a, State& b);
 };

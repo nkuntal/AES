@@ -18,29 +18,29 @@
 class Cipher{
     private:
         /* Enc/Dec variables-methods */
-        const static unsigned char sbox[16][16];
-        const static unsigned char sboxInv[16][16];
-        unsigned char** aesKeyExp;
-        unsigned char** macKeyExp;
+        const static uint8_t sbox[16][16];
+        const static uint8_t sboxInv[16][16];
+        uint8_t** aesKeyExp;
+        uint8_t** macKeyExp;
 
-        unsigned char xTime(unsigned char st);
-        unsigned char gFMultiply(unsigned char matrixValue, unsigned char st);
-        void shiftColumnsByOne(unsigned char** st, int* row, bool leftDir);
-        void shiftColumnsByTwo(unsigned char** st, int* row);
-        void RotWord(unsigned char* w);
-        void Rcon(int c, unsigned char* ch);
-        void subWord(unsigned char* wd);
-        void generateKey(unsigned char* buff, int _Nk);
-        void keyExpansion(unsigned char* key, unsigned char** keyExpanded);
-        void addRoudKey(int round, unsigned char** w, unsigned char** st);
-        void subBytes(unsigned char** st);
-        void shiftRows(unsigned char** st);
-        void mixColumns(unsigned char** st, unsigned char** tmp);
-        void encrypt(Sequence* input, unsigned char** key);
-        void decrypt(Sequence* input, unsigned char** key);
-        void invMixColumns(unsigned char** st, unsigned char** s2);
-        void invShiftRows(unsigned char** st);
-        void invSubBytes(unsigned char** st);
+        uint8_t xTime(uint8_t st);
+        uint8_t gFMultiply(uint8_t matrixValue, uint8_t st);
+        void shiftColumnsByOne(uint8_t** st, int* row, bool leftDir);
+        void shiftColumnsByTwo(uint8_t** st, int* row);
+        void RotWord(uint8_t* w);
+        void Rcon(int c, uint8_t* ch);
+        void subWord(uint8_t* wd);
+        void generateKey(uint8_t* buff, int _Nk);
+        void keyExpansion(uint8_t* key, uint8_t** keyExpanded);
+        void addRoudKey(int round, uint8_t** w, uint8_t** st);
+        void subBytes(uint8_t** st);
+        void shiftRows(uint8_t** st);
+        void mixColumns(uint8_t** st, uint8_t** tmp);
+        void encrypt(Sequence* input, uint8_t** key);
+        void decrypt(Sequence* input, uint8_t** key);
+        void invMixColumns(uint8_t** st, uint8_t** s2);
+        void invShiftRows(uint8_t** st);
+        void invSubBytes(uint8_t** st);
         
         /* Utilities */
         Block* inputBlock;
@@ -53,9 +53,9 @@ class Cipher{
         int getKeySize(string* aesKey, string* macKey);
         Sequence CBC_MAC(Block block, bool encrypting, bool padding);
         void cryptoDir();
-        void getKey(bool encrypt, string* keyPath, unsigned char*** keyExpanded);
-        void getMessageLength(unsigned char** s, bool encrypting, bool padding);
-        void readText(vector<unsigned char>* inpVct);
+        void getKey(bool encrypt, string* keyPath, uint8_t*** keyExpanded);
+        void getMessageLength(uint8_t** s, bool encrypting, bool padding);
+        void readText(vector<uint8_t>* inpVct);
         void removePadding(Sequence* lastPlainText);
         void setBlockRoundCombinations(int* keyLength, bool setKeyPath);
         void writePlainText();

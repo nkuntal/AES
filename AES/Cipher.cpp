@@ -10,7 +10,7 @@
 
 
 /* S-Box */
-const unsigned char Cipher::sbox[16][16] = {
+const uint8_t Cipher::sbox[16][16] = {
         {0x63 ,0x7c ,0x77 ,0x7b ,0xf2 ,0x6b ,0x6f ,0xc5 ,0x30 ,0x01 ,0x67 ,0x2b ,0xfe ,0xd7 ,0xab ,0x76},
         {0xca ,0x82 ,0xc9 ,0x7d ,0xfa ,0x59 ,0x47 ,0xf0 ,0xad ,0xd4 ,0xa2 ,0xaf ,0x9c ,0xa4 ,0x72 ,0xc0},
         {0xb7 ,0xfd ,0x93 ,0x26 ,0x36 ,0x3f ,0xf7 ,0xcc ,0x34 ,0xa5 ,0xe5 ,0xf1 ,0x71 ,0xd8 ,0x31 ,0x15},
@@ -29,7 +29,7 @@ const unsigned char Cipher::sbox[16][16] = {
         {0x8c ,0xa1 ,0x89 ,0x0d ,0xbf ,0xe6 ,0x42 ,0x68 ,0x41 ,0x99 ,0x2d ,0x0f ,0xb0 ,0x54 ,0xbb ,0x16}};
 
 /* Inverse S-Box */
-const unsigned char Cipher::sboxInv[16][16] = {
+const uint8_t Cipher::sboxInv[16][16] = {
         {0x52, 0x09, 0x6a, 0xd5, 0x30, 0x36, 0xa5, 0x38, 0xbf, 0x40, 0xa3, 0x9e, 0x81, 0xf3, 0xd7, 0xfb},
         {0x7c, 0xe3, 0x39, 0x82, 0x9b, 0x2f, 0xff, 0x87, 0x34, 0x8e, 0x43, 0x44, 0xc4, 0xde, 0xe9, 0xcb},
         {0x54, 0x7b, 0x94, 0x32, 0xa6, 0xc2, 0x23, 0x3d, 0xee, 0x4c, 0x95, 0x0b, 0x42, 0xfa, 0xc3, 0x4e},
@@ -47,7 +47,7 @@ const unsigned char Cipher::sboxInv[16][16] = {
         {0xa0, 0xe0, 0x3b, 0x4d, 0xae, 0x2a, 0xf5, 0xb0, 0xc8, 0xeb, 0xbb, 0x3c, 0x83, 0x53, 0x99, 0x61},
         {0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d}};
 
-const unsigned char rcon[] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1B, 0x36};
+const uint8_t rcon[] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1B, 0x36};
 
 
 /*
@@ -63,7 +63,7 @@ Cipher::Cipher(string* _textPath, int* keyLength, bool padding, bool encrypt):
         setBlockRoundCombinations(keyLength, true);
         getKey(encrypt, &aesKeyPath, &aesKeyExp);
         getKey(encrypt, &macKeyPath, &macKeyExp);
-        vector<unsigned char> inpVct;
+        vector<uint8_t> inpVct;
         readText(&inpVct);
         inputBlock = new Block(&inpVct, padding);
     } catch(const char* str) {
@@ -83,7 +83,7 @@ Cipher::Cipher(string* _textPath, string* _aesKeyPath, string* _macKeyPath,
         setBlockRoundCombinations(&keyLength, false);
         getKey(encrypt, &aesKeyPath, &aesKeyExp);
         getKey(encrypt, &macKeyPath, &macKeyExp);
-        vector<unsigned char> inpVct;
+        vector<uint8_t> inpVct;
         readText(&inpVct);
         inputBlock = new Block(&inpVct, padding);
     } catch(const char* str) {
@@ -100,7 +100,7 @@ Cipher::Cipher(string* _textPath, string* _aesKeyPath, string* _macKeyPath,
         setBlockRoundCombinations(keyLength, false);
         getKey(encrypt, &aesKeyPath, &aesKeyExp);
         getKey(encrypt, &macKeyPath, &macKeyExp);
-        vector<unsigned char> inpVct;
+        vector<uint8_t> inpVct;
         readText(&inpVct);
         inputBlock = new Block(&inpVct, padding);
     } catch(const char* str) {
@@ -184,13 +184,13 @@ void Cipher::cryptoDir() {
 void Cipher::setBlockRoundCombinations(int* keyLength, bool setKeyPath) {
     switch (*keyLength) {
     case 128:
-        Nk = 4, Nr = 10;
+        Nk = 4; Nr = 10;
         break;
     case 192:
-        Nk = 6, Nr = 12;
+        Nk = 6; Nr = 12;
         break;
     case 256:
-        Nk = 8, Nr = 14;
+        Nk = 8; Nr = 14;
         break;
     default: 
         throw "Invalid Key Length -- Valid: 128, 192, 256"; 
@@ -199,7 +199,7 @@ void Cipher::setBlockRoundCombinations(int* keyLength, bool setKeyPath) {
     if(setKeyPath){ 
         string length = to_string(*keyLength);              //Default AES and MAC keys location
         aesKeyPath = home + "/.AES-" + length + ".aes";
-        macKeyPath = home + "/.MAC-" + length + ".aes";   
+        macKeyPath = home + "/.MAC-" + length + ".aes";
     }
 }
 
@@ -213,8 +213,8 @@ void Cipher::setBlockRoundCombinations(int* keyLength, bool setKeyPath) {
  *
  * FIO51-CPP. Close files when they are no longer needed
  */
-void Cipher::getKey(bool encrypt, string* keyPath, unsigned char*** keyExpanded){
-    unsigned char* key = new unsigned char[4*Nk];
+void Cipher::getKey(bool encrypt, string* keyPath, uint8_t*** keyExpanded){
+    uint8_t* key = new uint8_t[4*Nk];
     ifstream input(*keyPath, ios::binary);
     if(input.is_open()){        //Read key, given path to it
         for(int i=0; i < 4*Nk; i++)
@@ -232,9 +232,9 @@ void Cipher::getKey(bool encrypt, string* keyPath, unsigned char*** keyExpanded)
 
     /* MEM53-CPP. Explicitly construct and destruct objects when 
        manually managing object lifetime */
-    *keyExpanded = new unsigned char*[4*(Nr+1)];    //Expand the key   
+    *keyExpanded = new uint8_t*[4*(Nr+1)];    //Expand the key
     for(int j=0; j<4*(Nr+1); j++)
-        (*keyExpanded)[j] = new unsigned char[4];
+        (*keyExpanded)[j] = new uint8_t[4];
     keyExpansion(key, *keyExpanded);
     
     delete[] key;
@@ -245,7 +245,7 @@ void Cipher::getKey(bool encrypt, string* keyPath, unsigned char*** keyExpanded)
  * Padding can be done if required
  * @param block - block with 128 bits partions
  */
-void Cipher::readText(vector<unsigned char>* inpVct) {
+void Cipher::readText(vector<uint8_t>* inpVct) {
     ifstream input(*textPath, ios::binary);
     streampos textSize;             //Size of the file
     input.seekg(0, ios::end);
@@ -267,7 +267,7 @@ void Cipher::readText(vector<unsigned char>* inpVct) {
  * each byte independently
  * @param wd - four byte word
  */
-void Cipher::subWord(unsigned char* wd) {
+void Cipher::subWord(uint8_t* wd) {
     for(int i = 0; i < 4; i++){
         int k = (int)wd[i];
         wd[i] = sbox[k/16][k%16];
@@ -278,7 +278,7 @@ void Cipher::subWord(unsigned char* wd) {
  * Substitute each byte in the State using S-Box
  * @param st - 2D 4x4 State array that will be modified
  */
-void Cipher::subBytes(unsigned char** st) {
+void Cipher::subBytes(uint8_t** st) {
     for(int row = 0; row < 4; row++)
         subWord(st[row]);
 }
@@ -289,17 +289,17 @@ void Cipher::subBytes(unsigned char** st) {
  * @param row - row within the State that will be modified
  * @param leftDir - if true shift in left direction, else in right direction
  */
-void Cipher::shiftColumnsByOne(unsigned char** st, int* row, bool leftDir) {
+void Cipher::shiftColumnsByOne(uint8_t** st, int* row, bool leftDir) {
     if(leftDir) {
         for(int column = 0; column < 3; column++) {
-            unsigned char temp = st[*row][column];
+            uint8_t temp = st[*row][column];
             int next = (column + 1) % 4;
             st[*row][column] = st[*row][next];
             st[*row][next] = temp;
         }
     } else {
         for(int column = 3; column > 0; column--) {
-            unsigned char temp = st[*row][column];
+            uint8_t temp = st[*row][column];
             int next = (column + 1) % 4;
             st[*row][column] = st[*row][next];
             st[*row][next] = temp;
@@ -314,9 +314,9 @@ void Cipher::shiftColumnsByOne(unsigned char** st, int* row, bool leftDir) {
  * @param st - 2D 4x4 State array that will be modified
  * @param row - row within the State that will be modified
  */
-void Cipher::shiftColumnsByTwo(unsigned char** st, int* row) {
+void Cipher::shiftColumnsByTwo(uint8_t** st, int* row) {
     for(int column = 0; column < 2; column++) {
-        unsigned char temp = st[*row][column];
+        uint8_t temp = st[*row][column];
         st[*row][column] = st[*row][column+2];
         st[*row][column+2] = temp;
     }
@@ -328,7 +328,7 @@ void Cipher::shiftColumnsByTwo(unsigned char** st, int* row) {
  * while highest positions change to lower positions
  * @param st - State whose rows will be shifted
  */
-void Cipher::shiftRows(unsigned char** st) {
+void Cipher::shiftRows(uint8_t** st) {
     int row = 1;
     shiftColumnsByOne(st, &row, true);
     shiftColumnsByTwo(st, &(++row));
@@ -338,9 +338,9 @@ void Cipher::shiftRows(unsigned char** st) {
 /*
  * Find xtime of the input.
  * It represents GF multiplication by x which is equivalent to {02} in byte representation 
- * @param s - an unsigned char which has to be multiplied by {02}
+ * @param s - an uint8_t which has to be multiplied by {02}
  */
-unsigned char Cipher::xTime(unsigned char st) {
+uint8_t Cipher::xTime(uint8_t st) {
     if (st < 0x80) {
         return st<<1;
     }
@@ -352,14 +352,14 @@ unsigned char Cipher::xTime(unsigned char st) {
  * Implementation of polynomial multiplication of higher powers of x using xtime operation.
  * @param matrixVlaue - value in the mixCol or invMixCol matrix, stateValue - value in the state to be multiplied
  */
-unsigned char Cipher::gFMultiply(unsigned char matrixValue, unsigned char st) {
-    unsigned char mul = 0x00;
+uint8_t Cipher::gFMultiply(uint8_t matrixValue, uint8_t st) {
+    uint8_t mul = 0x00;
     if (matrixValue%0x02) {
         mul = st;
         matrixValue -= 0x01;
     }
     while (matrixValue) {
-        unsigned char xt = st;
+        uint8_t xt = st;
         for (int i=0; i < (int)log2(matrixValue); i++){
             xt = xTime(xt);
         }
@@ -373,12 +373,12 @@ unsigned char Cipher::gFMultiply(unsigned char matrixValue, unsigned char st) {
  * Mix columns of the state
  * @param st - previous State, s2 - save result in the new State
  */
-void Cipher::mixColumns(unsigned char** st, unsigned char** s2){
-    unsigned char matrixValues[4] = {0x02, 0x03, 0x01, 0x01};
+void Cipher::mixColumns(uint8_t** st, uint8_t** s2){
+    uint8_t matrixValues[4] = {0x02, 0x03, 0x01, 0x01};
     for (int i=0; i < 4; i++) {
         for (unsigned int j=0; j < 4; j++) {
             if (i==0) {
-                s2[j] = new unsigned char[4];
+                s2[j] = new uint8_t[4];
             }
             unsigned int temp = 0;
             for (unsigned int k=0; k < 4; k++) {
@@ -393,8 +393,8 @@ void Cipher::mixColumns(unsigned char** st, unsigned char** s2){
  * Rotate the word left by 1 Byte and save
  * @param w -> 4 Bytes word
  */
-void Cipher::RotWord(unsigned char* w) {
-    unsigned char tmp = w[0];
+void Cipher::RotWord(uint8_t* w) {
+    uint8_t tmp = w[0];
     w[0] = w[1]; w[1] = w[2]; w[2] = w[3];
     w[3] = tmp;
 }
@@ -404,7 +404,7 @@ void Cipher::RotWord(unsigned char* w) {
  * @param c -> Round contanst for Cth round
  * @param buff -> Save the rcon as a word
  */
-void Cipher::Rcon(int c, unsigned char* buff) {
+void Cipher::Rcon(int c, uint8_t* buff) {
     buff[0] = rcon[c-1];
     buff[1] = buff[2] = buff[3] = 0;
 }
@@ -419,7 +419,7 @@ void Cipher::Rcon(int c, unsigned char* buff) {
  * MSC51-CPP. Ensure your random number generator is properly seeded
  * MSC41-C. Never hard code sensitive information
  */
-void Cipher::generateKey(unsigned char* buff, int _Nk) {
+void Cipher::generateKey(uint8_t* buff, int _Nk) {
     unsigned int rand[_Nk], x=0;
     bool* key2 = new bool[32*_Nk];
     
@@ -438,7 +438,7 @@ void Cipher::generateKey(unsigned char* buff, int _Nk) {
         }
     }
     for(int i=0; i<4*_Nk; i++) {
-        unsigned char ch = 0;
+        uint8_t ch = 0;
         for (int j=0; j<8; j++)
             if(key2[8*i+j])
                 ch += 1<<(7-j);
@@ -458,8 +458,8 @@ void Cipher::generateKey(unsigned char* buff, int _Nk) {
  * @param Nr -> Number of rounds in AES Enc
  * @param w -> (Nr+1)*4 char array to store expanded key
  */
-void Cipher::keyExpansion(unsigned char* key, unsigned char** keyExpanded) {
-    unsigned char temp[4];
+void Cipher::keyExpansion(uint8_t* key, uint8_t** keyExpanded) {
+    uint8_t temp[4];
     int i = 0;
     
     while(i < Nk) {
@@ -470,7 +470,7 @@ void Cipher::keyExpansion(unsigned char* key, unsigned char** keyExpanded) {
     while (i < 4*(Nr+1)) {
         for(int j=0; j<4; j++) temp[j] = keyExpanded[i-1][j];
         if (i % Nk == 0) {
-            unsigned char rcon[4];
+            uint8_t rcon[4];
             Rcon(i/Nk, rcon);
             RotWord(temp);
             subWord(temp);
@@ -490,7 +490,7 @@ void Cipher::keyExpansion(unsigned char* key, unsigned char** keyExpanded) {
  * @param w -> Stored KeyExpansion output
  * @param s -> Current state of input block
  */
-void Cipher::addRoudKey(int round, unsigned char** w, unsigned char** st) {
+void Cipher::addRoudKey(int round, uint8_t** w, uint8_t** st) {
     for (int i=4*round, k=0; i < 4*(round+1); i++, k++) {
         for (int j=0; j < 4; j++) {
             st[j][k] ^= w[i][j];
@@ -502,12 +502,12 @@ void Cipher::addRoudKey(int round, unsigned char** w, unsigned char** st) {
  * AES encryption routine
  * @param input - 128 bits that will go through encryption protocol
  */
-void Cipher::encrypt(Sequence* input, unsigned char** key) {
+void Cipher::encrypt(Sequence* input, uint8_t** key) {
     State state(input);
     addRoudKey(0, key, state.getStateArray());
     
     for (int i=1; i < Nr; i++) {
-        unsigned char** s2 = new unsigned char*[4];
+        uint8_t** s2 = new uint8_t*[4];
         subBytes(state.getStateArray());
         shiftRows(state.getStateArray());
         mixColumns(state.getStateArray(), s2);
@@ -532,7 +532,7 @@ void Cipher::encrypt(Sequence* input, unsigned char** key) {
  * Inverse order compared to original shiftRows method
  * @param st - State whose rows will be shifted
  */
-void Cipher::invShiftRows(unsigned char** st) {
+void Cipher::invShiftRows(uint8_t** st) {
     int row = 1;
     shiftColumnsByOne(st, &row, false);
     shiftColumnsByTwo(st, &(++row));
@@ -543,7 +543,7 @@ void Cipher::invShiftRows(unsigned char** st) {
  * Inverse of byte substitution. Using inverse S-box
  * @param st - State whose bytes will be substituted
  */ 
-void Cipher::invSubBytes(unsigned char** st) {
+void Cipher::invSubBytes(uint8_t** st) {
     for(int i = 0; i < 4; i++) {
         for(int j=0; j < 4; j++) {
             int k = (int)st[i][j];
@@ -556,12 +556,12 @@ void Cipher::invSubBytes(unsigned char** st) {
  * Inverse mix columns of the state
  * @param st - previous State, s2 - save result in the new State
  */
-void Cipher::invMixColumns(unsigned char** st, unsigned char** s2) {
-    unsigned char matrixValues[4] = {0x0e, 0x0b, 0x0d, 0x09};
+void Cipher::invMixColumns(uint8_t** st, uint8_t** s2) {
+    uint8_t matrixValues[4] = {0x0e, 0x0b, 0x0d, 0x09};
     for (int i=0; i < 4; i++) {
         for (unsigned int j=0; j < 4; j++) {
             if (i==0) {
-                s2[j] = new unsigned char[4];
+                s2[j] = new uint8_t[4];
             }
             unsigned int temp = 0;
             for (unsigned int k=0; k < 4; k++) {
@@ -576,12 +576,12 @@ void Cipher::invMixColumns(unsigned char** st, unsigned char** s2) {
  * AES Decryption 
  * @param input - 128 bits that will go through decryption protocol
  */
-void Cipher::decrypt(Sequence* input, unsigned char** key){
+void Cipher::decrypt(Sequence* input, uint8_t** key){
     State state(input);
     addRoudKey(Nr, key, state.getStateArray());
 
     for (int i=Nr-1; i > 0; i--) {
-        unsigned char** s2 = new unsigned char*[4];
+        uint8_t** s2 = new uint8_t*[4];
         invShiftRows(state.getStateArray());
         invSubBytes(state.getStateArray());
         addRoudKey(i, key, state.getStateArray());
@@ -614,7 +614,7 @@ void Cipher::decrypt(Sequence* input, unsigned char** key){
 */
 Sequence Cipher::CBC_MAC(Block block, bool encrypting, bool padding){
     Sequence tag(16);
-    unsigned char* mssgLength;
+    uint8_t* mssgLength;
     getMessageLength(&mssgLength, encrypting, padding);
     tag.setSequence(mssgLength);
     encrypt(&tag, macKeyExp);
@@ -658,8 +658,8 @@ bool Cipher::authenticateSequences(Sequence* first, Sequence* second){
  * @param padding - bool determining if padding should be taken into account
  *                  when calculating the ciphertext's length
 */
-void Cipher::getMessageLength(unsigned char** s, bool encrypting, bool padding) {
-    *s = new  unsigned char[16];
+void Cipher::getMessageLength(uint8_t** s, bool encrypting, bool padding) {
+    *s = new  uint8_t[16];
     ifstream text(*textPath, ios::binary);
     text.seekg(0, ios::end);
     int length = text.tellg();                     //Get the file's length
@@ -668,9 +668,9 @@ void Cipher::getMessageLength(unsigned char** s, bool encrypting, bool padding) 
         if(padding) 
             length += (length%16 == 0) ? 16 : (length%16);
     }
-    unsigned char bytes[sizeof length];
-    std::copy(static_cast<const unsigned char*>(static_cast<const void*>(&length)),
-          static_cast<const unsigned char*>(static_cast<const void*>(&length)) + sizeof length,
+    uint8_t bytes[sizeof length];
+    std::copy(static_cast<const uint8_t*>(static_cast<const void*>(&length)),
+          static_cast<const uint8_t*>(static_cast<const void*>(&length)) + sizeof length,
           bytes);
     for(int i = 0; i < sizeof length; i++)      //First 4 bytes will have length values
         (*s)[i] = bytes[i];
@@ -813,7 +813,7 @@ void Cipher::OFB_encrypt(){
     Sequence ivSq(16), ivOriginal(16);
     time_t rawtime;
     struct tm * timeinfo;
-    unsigned char iv[16];
+    uint8_t iv[16];
     time(&rawtime);
     timeinfo = localtime(&rawtime);
     strftime ((char *)iv, 16, "%r", timeinfo);
