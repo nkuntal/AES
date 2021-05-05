@@ -70,7 +70,7 @@ vector<Sequence>& Block::getSequenceVector() {
 
 /* 
  * Make it easier to print Block (by sequence) in hex
- * (Over-ridden function)
+ * (Overridden function)
  * 
  * OOP57-CPP. Prefer special member functions and overloaded 
  * operators to C Standard Library functions

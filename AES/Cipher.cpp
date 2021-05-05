@@ -411,7 +411,7 @@ void Cipher::Rcon(int c, uint8_t* buff) {
 
 /*
  * Generate Nk random Integers (32 bits) and
- * save them as character
+ * save them
  * @param buff -> Buffer to save the key
  * @param Nk -> Key-size in words
  * 
@@ -456,7 +456,7 @@ void Cipher::generateKey(uint8_t* buff, int _Nk) {
  * (Nr+1) words. (NIST doc)
  * @param Nk -> Key-size in words
  * @param Nr -> Number of rounds in AES Enc
- * @param w -> (Nr+1)*4 char array to store expanded key
+ * @param w -> (Nr+1)*4 array to store expanded key
  */
 void Cipher::keyExpansion(uint8_t* key, uint8_t** keyExpanded) {
     uint8_t temp[4];

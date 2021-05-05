@@ -1,6 +1,6 @@
 /*
  * Sequence.hpp
- * The structure of Sequence class
+ * The structure of Sequence
  */ 
 
 #ifndef Sequence_hpp

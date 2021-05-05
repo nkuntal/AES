@@ -1,6 +1,7 @@
 /*
  * State.cpp
- * The State Class has a struct to represent the sequence as a 2D array which consists of 4 rows each having Nb bytes.
+ * The State Class has a struct to represent the sequence as a 2D
+ * array which consists of 4 rows each having Nb bytes.
  * All the methods of the Cipher class are performed on the state.
  */
 
@@ -67,7 +68,7 @@ void State::setStateArray(uint8_t** st){
 
 
 /*
- * Function to print hex value of each char in the state
+ * Function to print hex value of each byte in the state
  * (Over-ridden function)
  * Params: os -> output stream
  *         state -> state to be printed

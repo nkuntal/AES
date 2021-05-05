@@ -1,6 +1,6 @@
 /*
  * Block.hpp
- * The structure of Block class
+ * The structure of Block
  */ 
 
 #ifndef Block_hpp

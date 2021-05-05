@@ -46,7 +46,7 @@ void Sequence::setSequence(uint8_t* sq) {
 void Sequence::setSize(int _size) {
     if(_size > 16 || _size < 0) throw "Invalid capacity\n";
     if(size != _size) {
-        uint8_t* temp = new unsigned char[_size];
+        uint8_t* temp = new uint8_t[_size];
         for(int i=0; i< _size; i++)
             temp[i] = sq[i];
         delete[] sq;
